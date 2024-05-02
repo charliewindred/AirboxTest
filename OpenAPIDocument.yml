@@ -1,0 +1,61 @@
+﻿openapi: 3.1.0
+info:
+    title: Location API
+    description: Facilitates the storage and retrieval of user location histories, defined
+                 by latitude and longitude coordinates.
+    version: 1.0.0
+paths:
+    /location:
+        get:
+            summary: Get the most recently added location from all users
+            description: Gets the most recently added location from all users
+            responses:
+                "200":
+                    description:"OK"
+                "404":
+                    description:"No locations found"        
+        post:
+            summary: Add location
+            description: "Adds the given location to the database. Creates a new user if userId is not provided in location object"
+            responses:
+                "200":
+                    description:"OK"
+                "400":
+                    description:"Bad Request"
+    /location/AllLocations/{userId}:
+        parameters:
+            in: path
+            name: userId
+            schema: 
+                type: integer
+            required: true
+            description: Numeric ID of the user to get
+
+            get:
+                summary: Get locations by user ID
+                description: Gets all locations added by the given user
+                responses:
+                    "200":
+                        description:"OK"    
+                    "404":
+                        description:"User doesn't exist or no locations found for user"
+
+    /location/MostRecentLocation/{userId}:
+        parameters:
+            in: path
+            name: userId
+            schema: 
+                type: integer
+            required: true
+            description: Numeric ID of the user to get
+
+            get:
+                summary: Get locations by user ID
+                description: Gets most recent location added by the given user
+                responses:
+                    "200":
+                        description:"OK"        
+                    "404":
+                        description:"User doesn't exist or no locations found for user"
+
+            
